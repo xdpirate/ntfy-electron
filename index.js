@@ -1,10 +1,11 @@
-const { app, BrowserWindow, Tray, dialog } = require('electron');
+const { app, BrowserWindow, Tray } = require('electron');
+const process = require('process');
+
+console.log(process.argv);
 
 let win, tray;
 let winHidden = 0;
 let appIconLoc = app.getAppPath() + "/ntfy.png";
-
-console.log(appIconLoc);
 
 function ready() {
   win = new BrowserWindow({
@@ -13,7 +14,7 @@ function ready() {
     icon: appIconLoc,
     title: "ntfy-electron"
   });
-  
+
   win.menuBarVisible = false;
   win.loadURL("https://ntfy.sh/app");
   
@@ -42,6 +43,17 @@ function ready() {
   win.on("page-title-updated", (event) => {
     event.preventDefault();
   });
+
+  console.log("process.argv[0] == " + process.argv[0]);
+  console.log("process.argv[1] == " + process.argv[1]);
+  console.log("process.argv[2] == " + process.argv[2]);
+
+  for(i = 0; i < process.argv.length; i++) {
+    if(process.argv[i] == "--hidden") {
+      winHidden = 1;
+      win.hide();
+    }
+  }
 }
 
 app.on('ready', ready);
