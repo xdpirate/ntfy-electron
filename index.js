@@ -1,13 +1,16 @@
-const { app, BrowserWindow, Tray } = require('electron');
+const { app, BrowserWindow, Tray, dialog } = require('electron');
 
 let win, tray;
 let winHidden = 0;
+let appIconLoc = app.getAppPath() + "/ntfy.png";
 
-function createWindow() {
+console.log(appIconLoc);
+
+function ready() {
   win = new BrowserWindow({
     width: 1280,
     height: 720,
-    icon: "./ntfy.png",
+    icon: appIconLoc,
     title: "ntfy-electron"
   });
   
@@ -23,7 +26,7 @@ function createWindow() {
     win.loadURL(url);
   });
   
-  tray = new Tray("./ntfy.png");
+  tray = new Tray(appIconLoc);
   tray.setToolTip("ntfy-electron | click to hide/show main window");
   
   tray.on("click", function() {
@@ -41,4 +44,4 @@ function createWindow() {
   });
 }
 
-app.on('ready', createWindow);
+app.on('ready', ready);
