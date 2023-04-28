@@ -7,6 +7,8 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1280,
     height: 720,
+    icon: "./ntfy.png",
+    title: "ntfy-electron"
   });
   
   win.menuBarVisible = false;
@@ -21,7 +23,7 @@ function createWindow() {
     win.loadURL(url);
   });
   
-  tray = new Tray("ntfy.png");
+  tray = new Tray("./ntfy.png");
   tray.setToolTip("ntfy-electron | click to hide/show main window");
   
   tray.on("click", function() {
@@ -32,6 +34,10 @@ function createWindow() {
       winHidden = 1;
       win.hide();
     }
+  });
+
+  win.on("page-title-updated", (event) => {
+    event.preventDefault();
   });
 }
 
