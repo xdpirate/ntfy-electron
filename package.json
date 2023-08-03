@@ -1,6 +1,6 @@
 {
   "name": "ntfy-electron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Electron wrapper for ntfy web app",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "xdpirate",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "custom-electron-prompt": "^1.5.7",
     "electron": "^24.1.3"
   }
 }
